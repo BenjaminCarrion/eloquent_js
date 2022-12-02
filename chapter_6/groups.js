@@ -5,20 +5,40 @@ class Group {
         this.set = [];
     }
     
-    set add(){
+    add(element){
+        if(!this.has(element)){
+            this.set.push(element);
+        }
     }
 
-    delete(){
+    delete(element){
+        this.set = this.set.filter( x => x != element); 
     }
 
     has(element){
-        return 
+        return this.set.includes(element);
     }
 
-    static from(){
+    static from(input){
+        let group = new Group;
+        for (let value of input){
+            group.add(value);
+        }
+        return group;
+    }
+
+    next(){
+        
     }
 
 }
+// iteration stuff
+// next() return the next result
+// result is an object with 
+//  a value property
+//  done property
+
+
 
 let group = Group.from([10, 20]);
 console.log(group.has(10));
@@ -28,4 +48,3 @@ console.log(group.has(30));
 group.add(10);
 group.delete(10);
 console.log(group.has(10));
-// → false
