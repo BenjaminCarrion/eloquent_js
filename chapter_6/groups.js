@@ -27,16 +27,28 @@ class Group {
         return group;
     }
 
-    next(){
-        
+    [Symbol.iterator](){
+        return new GroupIterator(this);
     }
 
 }
-// iteration stuff
-// next() return the next result
-// result is an object with 
-//  a value property
-//  done property
+
+class GroupIterator{
+    constructor(group){
+        this.group = group;
+        this.position = 0;
+    }
+
+    next(){
+        if(this.position >= this.group.set.length){ 
+            return {done: true}
+        }else{
+            let value = {value: this.group.set[this.position], done: false};
+            this.position++;
+            return value;
+        }
+    }
+}
 
 
 
@@ -48,3 +60,8 @@ console.log(group.has(30));
 group.add(10);
 group.delete(10);
 console.log(group.has(10));
+
+
+for (let value of Group.from(["a", "b", "c"])) {
+  console.log(value);
+}
